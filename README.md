@@ -1,75 +1,32 @@
-# Nuxt Minimal Starter
+# ArcGIS Online Test
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Test authentication to ArcGIS online in nuxt app using API key
 
-## Setup
+## Usage
 
-Make sure to install dependencies:
+Provide the ArcGIS API Key
 
 ```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+echo "NUXT_PUBLIC_ESRI_API_KEY=<my-api-key>" > .env
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+Start the dev server
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+Open [localhost](http://localhost:3030) and you should see a the
+topographic basemap loaded from the arcgis basemap styles server.
+The basemap style server won't serve unauthenticated requests, so
+if you see the map you know it is working.
 
-Build the application for production:
+Interesting code in [index.vue](./pages/index.vue)
 
-```bash
-# npm
-npm run build
+## Notes
 
-# pnpm
-pnpm build
+The API Key, when created in ArcGIS portal will have some accepted referers.
+The code in [index.vue](./pages/index.vue) injects the referer header manually
+becuase without it you get a 401.
 
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Not sure if this will be required when operating on a proper domain though.
