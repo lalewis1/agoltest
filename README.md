@@ -4,10 +4,12 @@ Test authentication to ArcGIS online in nuxt app using API key
 
 ## Usage
 
-Provide the ArcGIS API Key
+Provide the ArcGIS API Key, Portal URL, and Group Identifier 
 
 ```bash
 echo "NUXT_PUBLIC_ESRI_API_KEY=<my-api-key>" > .env
+echo "NUXT_PUBLIC_PORTAL_URL=<my-portal-url>" >> .env
+echo "NUXT_PUBLIC_PORTAL_GROUP_ID=<my-group-id>" >> .env
 ```
 
 Start the dev server
