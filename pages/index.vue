@@ -8,15 +8,17 @@
 
 <script setup lang="ts">
 onMounted(async () => {
-  const { default: esriConfig } = await import("@arcgis/core/config");
-  const { default: Map } = await import("@arcgis/core/Map");
-  const { default: MapView } = await import("@arcgis/core/views/MapView");
+  const {default: esriConfig} = await import("@arcgis/core/config");
+  const {default: Map} = await import("@arcgis/core/Map");
+  const {default: MapView} = await import("@arcgis/core/views/MapView");
+  const {default: PortalGroup} = await import("@arcgis/core/portal/PortalGroup");
+  const {default: Portal} = await import("@arcgis/core/portal/Portal");
 
   const config = useRuntimeConfig();
   esriConfig.apiKey = config.public.esriApiKey;
   esriConfig.request.interceptors.push({
     before: function (params) {
-      if (params.url.startsWith("https://basemapstyles")) {
+      if (params.url.startsWith(config.public.portalUrl)) {
         const referer = `${window.location.protocol}//${window.location.host}`;
         params.requestOptions.headers = {
           ...params.requestOptions.headers,
@@ -25,6 +27,16 @@ onMounted(async () => {
       }
     },
   });
+
+  const portal = new Portal({
+    url: config.public.portalUrl,
+  });
+  const group = new PortalGroup({
+    portal: portal,
+    id: config.public.portalGroupId,
+  })
+  const items = await group.queryItems();
+  console.log(items);
 
   const map = new Map({
     basemap: "arcgis/topographic",
@@ -36,5 +48,7 @@ onMounted(async () => {
     center: [-118.805, 34.027],
     zoom: 13,
   });
+
+
 });
 </script>
