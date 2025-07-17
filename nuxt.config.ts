@@ -3,7 +3,7 @@ export default defineNuxtConfig({
     modules: ["nuxt-security"],
     security: {
         corsHandler: {
-            origin: "*",
+            origin: "https://south32.maps.arcgis.com",
             methods: "*",
             allowHeaders: "*",
             exposeHeaders: "*",
