@@ -18,17 +18,6 @@ onMounted(async () => {
 
   const config = useRuntimeConfig();
   esriConfig.apiKey = config.public.esriApiKey;
-  esriConfig.request.interceptors.push({
-    before: function (params) {
-      if (params.url.startsWith(config.public.portalUrl)) {
-        const referer = `${window.location.protocol}//${window.location.host}`;
-        params.requestOptions.headers = {
-          ...params.requestOptions.headers,
-          Referer: referer,
-        };
-      }
-    },
-  });
 
   const portal = new Portal({
     url: config.public.portalUrl,
